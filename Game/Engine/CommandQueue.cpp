@@ -74,6 +74,7 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 		D3D12_RESOURCE_STATE_RENDER_TARGET); // 외주 결과물
 	//=> Back Buffer 리소스를 GPU작업 요청하는것.
 
+	//다음에 실행되야 할 것들을 _cmdList를 통해 넣어 주고 있음 이를 Mesh Render에서 그려 줌
 	_cmdList->ResourceBarrier(1, &barrier);
 	//예약하는 것
 

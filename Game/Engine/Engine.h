@@ -3,6 +3,8 @@
 #include "CommandQueue.h"
 #include "SwapChain.h"
 #include "RootSignature.h"
+#include "Mesh.h"
+#include "Shader.h"
 
 class Engine
 {
@@ -31,5 +33,6 @@ private:
 	shared_ptr<CommandQueue> _cmdQueue; //GPU 요청할 것들을 모아서 한번에 보냄
 	shared_ptr<SwapChain> _swapChain;	//더블 버퍼링
 	shared_ptr<RootSignature> _rootSignature;
+
 };
 
