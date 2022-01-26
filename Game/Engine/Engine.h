@@ -3,6 +3,7 @@
 #include "CommandQueue.h"
 #include "SwapChain.h"
 #include "RootSignature.h"
+#include "ConstantBuffer.h"
 #include "Mesh.h"
 #include "Shader.h"
 
@@ -17,6 +18,7 @@ public:
 	shared_ptr<CommandQueue> GetCmdQueue() { return _cmdQueue; } //GPU 요청할 것들을 모아서 한번에 보냄
 	shared_ptr<SwapChain> GetSwapChain(){ return _swapChain; }	//더블 버퍼링
 	shared_ptr<RootSignature> GetRootSignature() { return _rootSignature; }
+	shared_ptr<ConstantBuffer> GetCB() { return _cb; }
 
 public:
 	void RenderBegin(); //CommandQueue에 일감을 주는 것
@@ -33,6 +35,7 @@ private:
 	shared_ptr<CommandQueue> _cmdQueue; //GPU 요청할 것들을 모아서 한번에 보냄
 	shared_ptr<SwapChain> _swapChain;	//더블 버퍼링
 	shared_ptr<RootSignature> _rootSignature;
+	shared_ptr< ConstantBuffer> _cb;
 
 };
 

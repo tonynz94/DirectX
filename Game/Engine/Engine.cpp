@@ -15,11 +15,13 @@ void Engine::Init(const WindowInfo& info)
 	_cmdQueue = make_shared<CommandQueue>();
 	_swapChain = make_shared<SwapChain>();
 	_rootSignature = make_shared<RootSignature>();
+	_cb = make_shared<ConstantBuffer>();
 
 	_device->Init();
 	_cmdQueue->Init(_device->GetDevice(), _swapChain);
 	_swapChain->Init(info, _device->GetDevice(), _device->GetDXGI(), _cmdQueue->GetCmdQueue());
 	_rootSignature->Init(_device->GetDevice());
+	_cb->Init(sizeof(Transform), 256);	//256개의 버퍼를 만들어 줌
 }
 
 void Engine::Render()
@@ -46,7 +48,7 @@ void Engine::ResizeWindow(int32 width, int32 height)
 	_window.width = width;
 	_window.height = height;
 
-	RECT rect = { 0 , 0, _window.width, _window.height };
+	RECT rect = { 0 , 0, width, height };
 	//::로시작하는건 우리가 정의한것이 아니라 라이브러리에서 제공해주는 것.
 	//윈도우의 크기를 조절한다.
 	::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);

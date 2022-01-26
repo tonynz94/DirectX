@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CommandQueue.h"
 #include "SwapChain.h"
+#include "Engine.h"
 
 CommandQueue::~CommandQueue()
 {
@@ -75,8 +76,11 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 	//=> Back Buffer 리소스를 GPU작업 요청하는것.
 
 	//다음에 실행되야 할 것들을 _cmdList를 통해 넣어 주고 있음 이를 Mesh Render에서 그려 줌
-	_cmdList->ResourceBarrier(1, &barrier);
+	_cmdList->SetGraphicsRootSignature(ROOT_SIGNATURE.Get());
+	GEngine->GetCB()->Clear();		//constant buffer를 0으로 해줌. 매 프레임마다 깔끔하게 버퍼를 비워줌
 	//예약하는 것
+
+	_cmdList->ResourceBarrier(1, &barrier);
 
 	// Set the viewport and scissor rect.  This needs to be reset whenever the command list is reset.
 	//다시 사용하기 위해 리셋 함
