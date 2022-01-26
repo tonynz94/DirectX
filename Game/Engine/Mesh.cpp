@@ -53,8 +53,25 @@ void Mesh::Render()
 	// 1) Buffer에다가 데이터 세팅
 	// 2) Buffer의 주소를 register에다가 전송
 	//
-	GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
-	GEngine->GetCB()->PushData(1, &_transform, sizeof(_transform));
+	//GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
+	//GEngine->GetCB()->PushData(1, &_transform, sizeof(_transform));
+
+	// TODO
+	// 1) Buffer에다가 데이터 세팅
+	// 2) TableDescHeap에다가 CBV 전달
+	// 3) 모두 세팅이 끝났으면 TableDescHeap 커밋
+	{
+		//CPU 버퍼에서 -> GPU 버퍼로 복사를 해줌
+		D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
+		GEngine->GetTableDescHeap()->SetCBV(handle, CBV_REGISTER::b0); //복사해주는것
+	}
+	{
+		D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
+		GEngine->GetTableDescHeap()->SetCBV(handle, CBV_REGISTER::b1);
+	}
+
+	//테이블 사용
+	GEngine->GetTableDescHeap()->CommitTable();
 
 	CMD_LIST->DrawInstanced(_vertexCount, 1, 0, 0);		//그려주는 작업.
 }
