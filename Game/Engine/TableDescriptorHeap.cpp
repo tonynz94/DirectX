@@ -36,6 +36,7 @@ void TableDescriptorHeap::CommitTable()
 {
 	D3D12_GPU_DESCRIPTOR_HANDLE handle = _descHeap->GetGPUDescriptorHandleForHeapStart();
 	handle.ptr += _currentGroupIndex * _groupSize;
+	//데이터를 위로 올려주는 부분(그림상에서 Root arguments)
 	CMD_LIST->SetGraphicsRootDescriptorTable(0, handle);
 
 	_currentGroupIndex++;

@@ -15,13 +15,26 @@ void Game::Init(const WindowInfo& info)
 	//제일아래쪽 -1 제일 위쪽 +1
 	//(모델 정보는 하나만 존재)
 	//이를 이동하거나 색을 칠하는거는 GPU에서 해주기 떄문에 여기서 해주면 안됨.
-	vector<Vertex> vec(3);
-	vec[0].pos = Vec3(0.f, 0.5f, 0.5f); //x,y 3번쨰는 무시
-	vec[0].color = Vec4(1.f, 0.f, 0.f, 1.f);
-	vec[1].pos = Vec3(0.5f, -0.5f, 0.5f);
-	vec[1].color = Vec4(0.f, 1.0f, 0.f, 1.f);
-	vec[2].pos = Vec3(-0.5f, -0.5f, 0.5f);
-	vec[2].color = Vec4(0.f, 0.f, 1.f, 1.f);
+
+
+	//============인덱스 버퍼를 사용하지 않으면 여섯개의 정점정보를 알려줘야함==================
+	vector<Vertex> vec(6);
+	vec[0].pos = Vec3(-0.5f, 0.5f, 0.5f);  //x,y 3번쨰는 무시
+	vec[0].color = Vec4(1.f, 0.f, 0.f, 1.f);	//R
+	vec[1].pos = Vec3(0.5f, 0.5f, 0.5f);
+	vec[1].color = Vec4(0.f, 1.0f, 0.f, 1.f);	//G
+	vec[2].pos = Vec3(0.5f, -0.5f, 0.5f);
+	vec[2].color = Vec4(0.f, 0.f, 1.f, 1.f);	//B
+
+	vec[3].pos = Vec3(0.5f, -0.5f, 0.5f); //x,y 3번쨰는 무시
+	vec[3].color = Vec4(1.f, 0.f, 0.f, 1.f);	//R
+	vec[4].pos = Vec3(-0.5f, -0.5f, 0.5f);
+	vec[4].color = Vec4(0.f, 1.0f, 0.f, 1.f);	//G
+	vec[5].pos = Vec3(-0.5f, 0.5f, 0.5f);
+	vec[5].color = Vec4(0.f, 0.f, 1.f, 1.f);	//B
+
+	//============버텍스 버퍼 + 인덱스 버퍼 사용시 ==================
+
 	mesh->Init(vec);
 
 	shader->Init(L"..\\Resources\\Shader\\default.hlsli");
@@ -40,19 +53,19 @@ void Game::Update()
 
 	{
 		Transform t;
-		t.offset = Vec4(0.75f, 0.f, 0.f, 0.f);
+		t.offset = Vec4(0.0f, 0.f, 0.f, 0.f);
 		mesh->SetTransform(t);
 
 		mesh->Render();
 	}
 
-	{
+	/*{
 		Transform t;
 		t.offset = Vec4(0.f, 0.75f, 0.f, 0.f);
 		mesh->SetTransform(t);
 
 		mesh->Render();
-	}
+	}*/
 
 	GEngine->RenderEnd();
 }
