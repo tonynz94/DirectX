@@ -18,24 +18,48 @@ void Game::Init(const WindowInfo& info)
 
 
 	//============인덱스 버퍼를 사용하지 않으면 여섯개의 정점정보를 알려줘야함==================
-	vector<Vertex> vec(6);
-	vec[0].pos = Vec3(-0.5f, 0.5f, 0.5f);  //x,y 3번쨰는 무시
-	vec[0].color = Vec4(1.f, 0.f, 0.f, 1.f);	//R
-	vec[1].pos = Vec3(0.5f, 0.5f, 0.5f);
-	vec[1].color = Vec4(0.f, 1.0f, 0.f, 1.f);	//G
-	vec[2].pos = Vec3(0.5f, -0.5f, 0.5f);
-	vec[2].color = Vec4(0.f, 0.f, 1.f, 1.f);	//B
+	//vector<Vertex> vec(6);
+	//vec[0].pos = Vec3(-0.5f, 0.5f, 0.5f);  //x,y 3번쨰는 무시
+	//vec[0].color = Vec4(1.f, 0.f, 0.f, 1.f);	//R
+	//vec[1].pos = Vec3(0.5f, 0.5f, 0.5f);
+	//vec[1].color = Vec4(0.f, 1.0f, 0.f, 1.f);	//G
+	//vec[2].pos = Vec3(0.5f, -0.5f, 0.5f);
+	//vec[2].color = Vec4(0.f, 0.f, 1.f, 1.f);	//B
 
-	vec[3].pos = Vec3(0.5f, -0.5f, 0.5f); //x,y 3번쨰는 무시
-	vec[3].color = Vec4(1.f, 0.f, 0.f, 1.f);	//R
-	vec[4].pos = Vec3(-0.5f, -0.5f, 0.5f);
-	vec[4].color = Vec4(0.f, 1.0f, 0.f, 1.f);	//G
-	vec[5].pos = Vec3(-0.5f, 0.5f, 0.5f);
-	vec[5].color = Vec4(0.f, 0.f, 1.f, 1.f);	//B
+	//vec[3].pos = Vec3(0.5f, -0.5f, 0.5f); //x,y 3번쨰는 무시
+	//vec[3].color = Vec4(1.f, 0.f, 0.f, 1.f);	//R
+	//vec[4].pos = Vec3(-0.5f, -0.5f, 0.5f);
+	//vec[4].color = Vec4(0.f, 1.0f, 0.f, 1.f);	//G
+	//vec[5].pos = Vec3(-0.5f, 0.5f, 0.5f);
+	//vec[5].color = Vec4(0.f, 0.f, 1.f, 1.f);	//B
+
+	//mesh->Init(vec);
 
 	//============버텍스 버퍼 + 인덱스 버퍼 사용시 ==================
+	vector<Vertex> vec(4);
+	vec[0].pos = Vec3(-0.5f, 0.5f, 0.5f);
+	vec[0].color = Vec4(1.f, 0.f, 0.f, 1.f);
+	vec[1].pos = Vec3(0.5f, 0.5f, 0.5f);
+	vec[1].color = Vec4(0.f, 1.f, 0.f, 1.f);
+	vec[2].pos = Vec3(0.5f, -0.5f, 0.5f);
+	vec[2].color = Vec4(0.f, 0.f, 1.f, 1.f);
+	vec[3].pos = Vec3(-0.5f, -0.5f, 0.5f);
+	vec[3].color = Vec4(0.f, 1.f, 0.f, 1.f);
 
-	mesh->Init(vec);
+	vector<uint32> indexVec;
+	{
+		indexVec.push_back(0);
+		indexVec.push_back(1);
+		indexVec.push_back(2);
+	}
+	{
+		indexVec.push_back(0);
+		indexVec.push_back(2);
+		indexVec.push_back(3);
+	}
+
+	mesh->Init(vec, indexVec);
+	
 
 	shader->Init(L"..\\Resources\\Shader\\default.hlsli");
 
