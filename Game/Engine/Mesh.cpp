@@ -59,10 +59,10 @@ void Mesh::CreateVertexBuffer(const vector<Vertex>& buffer)
 	D3D12_HEAP_PROPERTIES heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 	D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Buffer(bufferSize); //buffersize만큼 GPU에게 요청을 함.
 
-	//버퍼를 GPU쪽에 가서 할당하고 있음.
+	//버퍼를 GPU쪽에 크기만큼 할당하고 있음.
 	//리소스를 만들어줌.
 	DEVICE->CreateCommittedResource(
-		&heapProperty,
+		&heapProperty,	//
 		D3D12_HEAP_FLAG_NONE,
 		&desc,
 		D3D12_RESOURCE_STATE_GENERIC_READ,
